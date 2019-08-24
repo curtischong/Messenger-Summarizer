@@ -1,0 +1,27 @@
+#convoBody{
+  position: absolute;
+  width: 25%;
+  height: 93%;
+  /*background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
+  background-size: contain;*/
+  background-color: #F0F8FF;
+  top: 7%;
+  right: 0px;
+  z-index: 100;
+}
+
+#visibilityBtn{
+  position: absolute;
+  top: 60px;
+  right: 25%;
+  margin: 15px;
+  border-radius: 30px;
+  background: rgba(0, 0, 0, 0.1);
+  color: rgba(0,0,0,0.7);
+  cursor:pointer;
+  z-index: 100;
+  border: 1px solid grey;
+}
+#visibilityBtn:focus{
+  outline: none;
+}

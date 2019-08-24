@@ -1,0 +1,18 @@
+{
+  "manifest_version": 2,
+  "name": "Messenger Parser",
+  "version": "0.1",
+  "content_scripts": [
+  {
+    "matches": [
+      "https://www.messenger.com/*"
+    ],
+    "js": ["dependencies/jquery-3.3.1.min.js", "parse.js", "convo.js", "network.js"],
+    "css": ["convo.css"]
+  }],
+  "browser_action": {
+  },
+  "web_accessible_resources": [
+    "convo.html"
+  ]
+}
