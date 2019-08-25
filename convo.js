@@ -21,16 +21,16 @@ let onlyText = (msgs) => {
 }
 
 let displaySummary = (summary) => {
+  $("#sumList").html("");
   for (index = 0; index < summary.length; index++) {
     // Create a <li> node
     var node = document.createElement("LI");
-    //node.id = summary[index].id;
-    let id = summary[index].id;
+    let msgid = summary[index].id;
     node.classList.add("sumListElement");
-    let height = $("#"+id).offset().top;
+    let height = $("#"+msgid).offset().top;
     node.addEventListener("click", function(e) {
-      console.log($("#"+id).first());
-      $("#"+id)[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      console.log($("#"+msgid).first());
+      $("#"+msgid)[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
       //window.scrollBy(0,height);
       //$("._4u-c").scrollTop = 0;
       // $("._4u-c").scroll(0,100);

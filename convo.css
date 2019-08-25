@@ -1,3 +1,19 @@
+button:focus{
+  outline: none;
+}
+#reload{
+  position: relative;
+  color: black;
+  background-color: orange;
+  padding: 10px;
+  border-radius: 20px;
+  margin: 0 auto;
+  margin-top: 10px;
+  left: 40%;
+  border: 1px white;
+  cursor:pointer;
+}
+
 #convoBody{
   position: absolute;
   width: 25%;
@@ -21,9 +37,6 @@
   cursor:pointer;
   z-index: 100;
   border: 1px solid grey;
-}
-#visibilityBtn:focus{
-  outline: none;
 }
 
 #sumList{
