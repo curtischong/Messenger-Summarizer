@@ -22,32 +22,18 @@ let onlyText = (msgs) => {
 
 let displaySummary = (summary) => {
   for (index = 0; index < summary.length; index++) {
+    console.log(summary[index]);
     // Create a <li> node
     var node = document.createElement("LI");
     let msgid = summary[index].id;
     node.classList.add("sumListElement");
     let height = $("#"+msgid).offset().top;
     node.addEventListener("click", function(e) {
-      console.log($("#"+msgid).first());
+      //console.log($("#"+msgid).first());
       $("#"+msgid)[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
-      //window.scrollBy(0,height);
-      //$("._4u-c").scrollTop = 0;
-      // $("._4u-c").scroll(0,100);
-      //console.log( $(".uiScrollableAreaContent").scrollTop.pixels);
-      //$(".uiScrollableAreaContent").scrollTop -= 100;/*scroll({
-      //$("._4u-c").scrollTop += 100;/*scroll({
-      $(".__i_").scrollTop = 100;/*scroll({
-        top: 100,
-        left: 500,
-        behavior: 'smooth'
-      });*/
-      /*$('.__i_')[0].animate({
-        scrollTop: $("#"+node.id).offset().top
-      }, 2000);*/
-      console.log($('.__i_'));
     });
     // Create a text node
-    var textnode = document.createTextNode(summary[index].msg);
+    var textnode = document.createTextNode(summary[index].omsg);
     // Append the text to <li>
     node.appendChild(textnode);
     // Append <li> to <ul> with id="myList"
@@ -61,8 +47,10 @@ let loadSidebar = () => {
   let convos = []
   relevantMsgs.forEach(function(msg){
     let convo = parseConvo(msg);
-    text_convo = onlyText(convo);
-    convos.push(text_convo);
+    let textConvo = onlyText(convo);
+    if (textConvo.length > 0){
+      convos.push(textConvo);
+    }
   });
 //  console.log(convos[0]);
 
@@ -70,15 +58,16 @@ let loadSidebar = () => {
   // TODO: uncomment this when the api is finished!
   // getPhrases(lastFiveMsgs);
   //convo = ['this is a sentence', 'this is a second sentence that is really really long'];
-  $("#sumList").html("");
+  /*
   for (let i = 0; i < convos.length; i++){
-    if (convos[i].length == 0){
-      continue;
-    }
     console.log(convos[i])
     displaySummary(convos[i]);
-  }
-  getPhrases(convos);
+  }*/
+  getPhrases(convos,function(res){
+      console.log(res);
+      $("#sumList").html("");
+        displaySummary(res);
+  });
 }
 
 let setShowBtnListener = () => {
