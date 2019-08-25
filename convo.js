@@ -30,7 +30,7 @@ let displaySummary = (summary) => {
     let height = $("#"+id).offset().top;
     node.addEventListener("click", function(e) {
       console.log($("#"+id).first());
-      $("#"+id)[0].scrollIntoView(true);
+      $("#"+id)[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
       //window.scrollBy(0,height);
       //$("._4u-c").scrollTop = 0;
       // $("._4u-c").scroll(0,100);
