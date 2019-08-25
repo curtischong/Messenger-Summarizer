@@ -2,21 +2,26 @@ const DETAILED_DEBUG = false;
 
 let getRelevantMsgs = () => {
   let relevantMsgs = [];
+    let curMsgs = [];
   $("#js_1").children().each((_, msg) => {
-    //_497p
+    // _497p
     // This line looks for the timestamps that show up in between conversations
     if($(msg).attr("class") == "_497p _2lpt"){
-      relevantMsgs = [];
+      if(curMsgs != []){
+        relevantMsgs.push(curMsgs);
+      }
+      curMsgs = [];
     // If there is a container div with no class then we know that it is a message
     // block that is sent by somebody
     }else if($(msg).attr("class") === undefined){
       // children.first bc there is this unnecessary double nested div
-      relevantMsgs.push($(msg).children().first().children("._41ud"));
+      curMsgs.push($(msg).children().first().children("._41ud"));
     }else{
       console.log("ERROR: couldn't find the header class. instead found:")
       console.log($(msg).attr("class"));
     }
   });
+  relevantMsgs.push(curMsgs);
   return relevantMsgs;
 }
 
@@ -30,8 +35,36 @@ let findTimeSent = (element) => {
   return lastSegment
 }
 
-/*parse.js:25 Uncaught TypeError: Cannot read property 'split' of undefined
-*/
+/*
+let containsDayOfWeek = (timeSent) => {
+    let daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    daysOfWeek.forEach(function(day){
+      if(timeSent.includes(day)){
+        return true;
+      }
+    });
+    return false;
+}
+
+let containsMonth = (timeSent) => {
+    let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    months.forEach(function(month){
+      if(timeSent.includes(month)){
+        return true;
+      }
+    });
+    return false;
+}*/
+
+let guid = () => {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+}
 
 let parseConvo = (relevantMsgs) =>{
   let convo = [];
@@ -65,24 +98,42 @@ let parseConvo = (relevantMsgs) =>{
         console.log(error);
         return
       }
+      /*
+      if(containsMonth(timeSent)){
+        console.log(timeSent)
+      }else if(containsDayOfWeek(timeSent)){
+        console.log(timeSent)
+      }else{
+        // note this is buggy cause I'm mixing utx and local
+        var today = moment();
+        console.log(moment(timeSent, LT).format())//.toISOString())
+      }*/
+
 
       // this "if" needs to be here first bc the read receipt img shouldn't trigger the "find img block"
       // finds texts
+
       if($(texts).find("span._3oh-").length !== 0){
         // note: there could be a link in there
         // note: if there is a visual of the link destination it should be within the same .clearfix block as the text
         let words = $(texts).find("span._3oh-").text()
+        let element = $(texts).find("span._3oh-")[0]
+        id = guid();
+        // Note: this attr is placed on a span element
+        $(element).attr("id", id);
         if(DETAILED_DEBUG){
-          console.log(`${person}: ${words}`);
+          console.log(person);
+          console.log(words);
         }
         convo.push({
           "person": person,
           "type": "text",
           "msg": words,
-          "timeSent": timeSent
+          "timeSent": timeSent,
+          "id": id,
         })
       // finds uploaded images
-      }else if($(texts).find('img').length !== 0){
+      }else if ($(texts).find('img').length !== 0){
         if(DETAILED_DEBUG){
           console.log(`${person}: img`);
         }

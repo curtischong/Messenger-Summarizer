@@ -25,3 +25,15 @@
 #visibilityBtn:focus{
   outline: none;
 }
+
+#sumList{
+  color: navy;
+  font-family: "Gill Sans", sans-serif;
+  margin: 12.5px;
+}
+.sumListElement{
+  padding: 5px;
+  background-color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}

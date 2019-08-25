@@ -9,15 +9,68 @@ let getLastFiveMsgs = (convo) => {
   return lastFiveMsgs;
 }
 
+
+let onlyText = (msgs) => {
+  let newMsgs = []
+  msgs.forEach(function(msg){
+    if(msg.type === "text"){
+      newMsgs.push(msg);
+    }
+  });
+  return newMsgs;
+}
+
+let displaySummary = (summary) => {
+  for (index = 0; index < summary.length; index++) {
+    // Create a <li> node
+    var node = document.createElement("LI");
+    node.id = summary[index].id;
+    node.classList.add("sumListElement");
+    let height = $("#"+node.id).offset().top;
+    node.addEventListener("click", function(e) {
+      console.log($("#"+node.id));
+      //window.scrollBy(0,height);
+      //$("._4u-c").scrollTop = 0;
+      // $("._4u-c").scroll(0,100);
+      $(".__i_").scroll({
+        top: 100,
+        left: 500,
+        behavior: 'smooth'
+      });
+      /*$('.__i_')[0].animate({
+        scrollTop: $("#"+node.id).offset().top
+      }, 2000);*/
+      console.log($('.__i_'));
+    });
+    // Create a text node
+    var textnode = document.createTextNode(summary[index].msg);
+    // Append the text to <li>
+    node.appendChild(textnode);
+    // Append <li> to <ul> with id="myList"
+    document.getElementById("sumList").appendChild(node);
+  }
+}
+
 let loadSidebar = () => {
   // These relevant Msgs are from the last conversation
   let relevantMsgs = getRelevantMsgs();
-  let convo = parseConvo(relevantMsgs);
-  console.log(convo);
+  let convos = []
+  relevantMsgs.forEach(function(msg){
+    let convo = parseConvo(msg);
+    text_convo = onlyText(convo);
+    convos.push(text_convo);
+  });
+//  console.log(convos[0]);
 
-  let lastFiveMsgs = getLastFiveMsgs(convo);
+  // let lastFiveMsgs = getLastFiveMsgs(convo);
   // TODO: uncomment this when the api is finished!
   // getPhrases(lastFiveMsgs);
+  //convo = ['this is a sentence', 'this is a second sentence that is really really long'];
+
+  for (let i = 0; i < convos.length; i++){
+    displaySummary(convos[i]);
+  }
+  getPhrases(convos);
 }
 
 let setShowBtnListener = () => {

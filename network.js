@@ -6,6 +6,7 @@ let getPhrases = (messages) => {
       "messages": JSON.stringify(messages)
     },
     success: function(response) {
+      console.log("response")
       console.log(response);
     },
     error: function(xhr) {
