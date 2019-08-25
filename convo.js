@@ -24,19 +24,24 @@ let displaySummary = (summary) => {
   for (index = 0; index < summary.length; index++) {
     // Create a <li> node
     var node = document.createElement("LI");
-    node.id = summary[index].id;
+    //node.id = summary[index].id;
+    let id = summary[index].id;
     node.classList.add("sumListElement");
-    let height = $("#"+node.id).offset().top;
+    let height = $("#"+id).offset().top;
     node.addEventListener("click", function(e) {
-      console.log($("#"+node.id));
+      console.log($("#"+id).first());
+      $("#"+id)[0].scrollIntoView(true);
       //window.scrollBy(0,height);
       //$("._4u-c").scrollTop = 0;
       // $("._4u-c").scroll(0,100);
-      $(".__i_").scroll({
+      //console.log( $(".uiScrollableAreaContent").scrollTop.pixels);
+      //$(".uiScrollableAreaContent").scrollTop -= 100;/*scroll({
+      //$("._4u-c").scrollTop += 100;/*scroll({
+      $(".__i_").scrollTop = 100;/*scroll({
         top: 100,
         left: 500,
         behavior: 'smooth'
-      });
+      });*/
       /*$('.__i_')[0].animate({
         scrollTop: $("#"+node.id).offset().top
       }, 2000);*/
