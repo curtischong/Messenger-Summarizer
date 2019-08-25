@@ -9,7 +9,6 @@ let getLastFiveMsgs = (convo) => {
   return lastFiveMsgs;
 }
 
-
 let onlyText = (msgs) => {
   let newMsgs = []
   msgs.forEach(function(msg){
@@ -21,19 +20,27 @@ let onlyText = (msgs) => {
 }
 
 let displaySummary = (summary) => {
-
-
-
-
   for (index = 0; index < summary.length; index++) {
     console.log(summary[index]);
     // Create a <li> node
-    var node = document.createElement("LI");
+    node = $('<li class="sumListElement"></li>')
+    .append($('<div class="sumListElementFilter" style="background-color: rgba(255, 0, 0, ' + Math.min(Math.pow(parseFloat(summary[index].cohesion_val),1)*1.9, 1) + ')"><p class="sumTxt">' + summary[index].text.omsg + '</p></div>')
+        .attr({ cellSpacing : 0 })
+        .addClass("text")
+    )
+
     let msgid = summary[index].text.id;
-    node.classList.add("sumListElement");
+    // node.style.backgroundColor("rgba(255, 0, 0, " + summary[index].cohesion_val*3 + ")");
+    //node.style.backgroundColor = "rgba(" + parseFloat(summary[index].cohesion_val)*3 + ", 255,255,1)";
     let data = summary[index].word_cloud;
-    node.addEventListener("click", function(e) {
-      $("#"+msgid)[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    node.on("click", function(e) {
+      // don't know why but it's not highlighting
+      // pretty sure it's bc there aren't any callbacks for this
+      $("#"+msgid)[0].scrollIntoView({ behavior: 'smooth', block: 'center' },function(){
+          $("#"+msgid).parent().parent().stop().animate({backgroundColor:'#4E1402'}, 300, function () {
+          $("#"+msgid).parent().parent().stop().animate({backgroundColor:'#943D20'}, 100);
+        });
+      });
 
       console.log(data);
       $("#word_con").html("")
@@ -44,12 +51,12 @@ let displaySummary = (summary) => {
       chart.draw();
       chart.tooltip(false);
     });
+    $("#sumList").append(node);
     // Create a text node
-    var textnode = document.createTextNode(summary[index].text.omsg);
+    //var textnode = document.createTextNode(summary[index].text.omsg);
     // Append the text to <li>
-    node.appendChild(textnode);
+    //node.appendChild(textnode);
     // Append <li> to <ul> with id="myList"
-    document.getElementById("sumList").appendChild(node);
   }
 }
 
