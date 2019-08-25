@@ -21,19 +21,31 @@ let onlyText = (msgs) => {
 }
 
 let displaySummary = (summary) => {
+
+
+
+
   for (index = 0; index < summary.length; index++) {
     console.log(summary[index]);
     // Create a <li> node
     var node = document.createElement("LI");
-    let msgid = summary[index].id;
+    let msgid = summary[index].text.id;
     node.classList.add("sumListElement");
-    let height = $("#"+msgid).offset().top;
+    let data = summary[index].word_cloud;
     node.addEventListener("click", function(e) {
-      //console.log($("#"+msgid).first());
       $("#"+msgid)[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      console.log(data);
+      $("#word_con").html("")
+      let chart = anychart.tagCloud(data);
+      chart.title('Chat Summary')
+      chart.angles([0])
+      chart.container("word_con");
+      chart.draw();
+      chart.tooltip(false);
     });
     // Create a text node
-    var textnode = document.createTextNode(summary[index].omsg);
+    var textnode = document.createTextNode(summary[index].text.omsg);
     // Append the text to <li>
     node.appendChild(textnode);
     // Append <li> to <ul> with id="myList"
@@ -63,7 +75,7 @@ let loadSidebar = () => {
     console.log(convos[i])
     displaySummary(convos[i]);
   }*/
-  getPhrases(convos,function(res){
+  getPhrases(convos, function(res){
       console.log(res);
       $("#sumList").html("");
         displaySummary(res);
@@ -160,20 +172,22 @@ let init = () => {
 }
 
 $(document).ready( () => {
-  $.get(chrome.extension.getURL('convo.html'), (data) => {
-    $(data).appendTo('body');
+  //anychart.onDocumentReady(function() {
+    $.get(chrome.extension.getURL('convo.html'), (data) => {
+      $(data).appendTo('body');
 
-    $(window).on("load", () => {
-      let i = setInterval(() => {
-          if ($('._41ud').length) {
-            clearInterval(i);
-            // everything is now loaded
-            console.log("Using convo.js!")
-            let initVars = init();
-            main(initVars);
-          }
-      }, 100);
+      $(window).on("load", () => {
+        let i = setInterval(() => {
+            if ($('._41ud').length) {
+              clearInterval(i);
+              // everything is now loaded
+              console.log("Using convo.js!")
+              let initVars = init();
+              main(initVars);
+            }
+        }, 100);
+      });
+
     });
-
-  });
+  //});
 });

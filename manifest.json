@@ -7,7 +7,7 @@
     "matches": [
       "https://www.messenger.com/*"
     ],
-    "js": ["dependencies/jquery-3.3.1.min.js", "dependencies/moment-with-locals.js", "parse.js", "convo.js", "network.js"],
+    "js": ["dependencies/anychart-base.min.js", "dependencies/anychart-tag-cloud.min.js", "dependencies/jquery-3.3.1.min.js", "dependencies/moment-with-locals.js", "parse.js", "convo.js", "network.js"],
     "css": ["convo.css"]
   }],
   "browser_action": {
