@@ -21,7 +21,6 @@ let onlyText = (msgs) => {
 }
 
 let displaySummary = (summary) => {
-  $("#sumList").html("");
   for (index = 0; index < summary.length; index++) {
     // Create a <li> node
     var node = document.createElement("LI");
@@ -71,8 +70,12 @@ let loadSidebar = () => {
   // TODO: uncomment this when the api is finished!
   // getPhrases(lastFiveMsgs);
   //convo = ['this is a sentence', 'this is a second sentence that is really really long'];
-
+  $("#sumList").html("");
   for (let i = 0; i < convos.length; i++){
+    if (convos[i].length == 0){
+      continue;
+    }
+    console.log(convos[i])
     displaySummary(convos[i]);
   }
   getPhrases(convos);

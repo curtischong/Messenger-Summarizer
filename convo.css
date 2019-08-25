@@ -24,6 +24,7 @@ button:focus{
   top: 7%;
   right: 0px;
   z-index: 100;
+  overflow-y: scroll;
 }
 
 #visibilityBtn{
