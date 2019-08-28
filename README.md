@@ -2,7 +2,7 @@
 Written by Flora Sun and Curtis Chong.
 
 <p align="center">
-  <img src="https://chongcurtis.com/file_hosting/messenger_summarizer.png" alt="A photo of the proposed locations."/>
+  <img src="http://chongcurtis.com/file_hosting/messenger_summarizer.png" alt="A photo of the proposed locations."/>
 </p>
 
 Messenger Summarizer is a Chrome extension that identifies and highlights important conversations, assesses sincerity, variety, length, and quality in Messenger messages.
