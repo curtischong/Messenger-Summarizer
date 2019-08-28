@@ -24,7 +24,7 @@ let displaySummary = (summary) => {
     console.log(summary[index]);
     // Create a <li> node
     node = $('<li class="sumListElement"></li>')
-    .append($('<div class="sumListElementFilter" style="background-color: rgba(255, 0, 0, ' + Math.min(Math.pow(parseFloat(summary[index].cohesion_val),1)*1.9, 1) + ')"><p class="sumTxt">' + summary[index].text.omsg + '</p></div>')
+    .append($('<div class="sumListElementFilter" style="background-color: rgba(255, 0, 0, ' + Math.min(Math.pow(parseFloat(summary[index].cohesion_val),1)*2.6, 1) + ')"><p class="sumTxt">' + summary[index].text.omsg + '</p></div>')
         .attr({ cellSpacing : 0 })
         .addClass("text")
     )
@@ -36,11 +36,14 @@ let displaySummary = (summary) => {
     node.on("click", function(e) {
       // don't know why but it's not highlighting
       // pretty sure it's bc there aren't any callbacks for this
-      $("#"+msgid)[0].scrollIntoView({ behavior: 'smooth', block: 'center' },function(){
-          $("#"+msgid).parent().parent().stop().animate({backgroundColor:'#4E1402'}, 300, function () {
-          $("#"+msgid).parent().parent().stop().animate({backgroundColor:'#943D20'}, 100);
-        });
-      });
+      $("#"+msgid)[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+          //$("#"+msgid).//.parent().parent().stop().animate({backgroundColor:'#4E1402'}, 300, function () {
+          //$("#"+msgid)./parent().parent().stop().animate({backgroundColor:'#943D20'}, 100);
+          $("#"+msgid).parent().parent().attr("style", "background-color: #2db300; transition: 300ms;");
+          // $("#"+msgid).parent().parent().animate({backgroundColor:'rgb(241, 240, 240)'}, 1500);
+          setTimeout(() => {
+            $("#"+msgid).parent().parent().attr("style", "rgb(241, 240, 240); transition: 300ms;");
+          }, 1000);
 
       console.log(data);
       $("#word_con").html("")
