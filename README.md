@@ -1,5 +1,5 @@
 # Messenger-Summarizer
-Written by Flora Sun and Curtis Chong.
+Written by [Flora Sun](https://github.com/florasun01) and [Curtis Chong](https://github.com/curtischong).
 
 <p align="center">
   <img src="http://chongcurtis.com/file_hosting/messenger_summarizer.png" alt="A photo of the proposed locations."/>
@@ -19,7 +19,7 @@ Messenger Summarizer is a Chrome extension that identifies and highlights import
 
 Note: This script also relies on the server which can be found [here](https://github.com/curtischong/Messenger-Summarizer-Server).
 
-First, you'll need to install the dependencies. You can do this by downloading the js dependency files from CDNs using curl.
+First, you'll need to install the dependencies. You can do this by downloading the js dependency files from CDNs using `cURL`.
 ```
 curl https://code.jquery.com/jquery-3.3.1.min.js > dependencies/jquery-3.3.1.min.js &&
 curl https://cdn.anychart.com/releases/8.7.0/js/anychart-tag-cloud.min.js > dependencies/anychart-tag-cloud.min.js
@@ -51,8 +51,8 @@ The first step is the create a frequency dictionary that counts how often each w
 ### How we calculate the focus of the conversation
 To calculate the focus of a conversation, each word is represented as a word embedding. An embedding is a 300-dimensional vector that represents the word. You can read more about how an embedding represents a word [here](https://towardsdatascience.com/introduction-to-word-embedding-and-word2vec-652d0c2060fa). Since each dimension of the vector represents an attribute of the word, words that have different meanings from each other should be further in the vector space. In other words, if two words represent completely different concepts, then their embeddings would not be close to each other. Let's look at this two-dimensional vector to illustrate.
 ```
-juggle        rat              cat
-[0.1,0.6]     [-0.9, -0.4]     [-0.8,-0.2]
+juggle         rat              cat
+[0.1, 0.6]     [-0.9, -0.4]     [-0.8, -0.2]
 ```
 
 The first dimension of "juggle" has a sizable difference in magnitude compared to the first dimension of the word "rat". However, the word "rat" has a smaller difference in magnitude to the first dimension of the word "cat". This is because "rat" represents a concept that is closer to "cat" than to "juggle".
@@ -63,7 +63,7 @@ Note: To simplify the calculation of the distances between each word vector, we 
 
 ### How the word cloud is populated
 We use a custom weighting scheme that is based on:
-- Its frequency in the entire conversation
-- The length of the word
-- Its classification as slang 
-- Its classification as a greeting 
+- Its frequency in the entire conversation.
+- The length of the word.
+- Its classification as slang.
+- Its classification as a greeting.
