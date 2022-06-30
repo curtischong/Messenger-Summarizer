@@ -40,7 +40,7 @@ Now we will load the chrome extension into your browser by following the advice 
 
 
 ### How we determine the most important message
-Let's look at how this message has a score of 14.
+Let's look at how this message has a score of 15.
 ```
 1   2    0  5   0  7 = 15
 We need to rent a car
